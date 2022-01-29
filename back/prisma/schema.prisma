@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(uuid())
+  email    String  @unique
+  name     String
+  password String
+  admin    Boolean
+
+  @@map("users")
+  Scheduling Scheduling[]
+}
+
+model Barber {
+  id             String @id @default(uuid())
+  name           String
+  age            String
+  date_of_hiring String
+  specialties    String
+
+  @@map("barbers")
+  Scheduling Scheduling[]
+}
+
+model Scheduling {
+  id         String   @id @default(uuid())
+  id_user    String
+  user       User     @relation(fields: [id_user], references: [id])
+  id_barber  String
+  barber     Barber   @relation(fields: [id_barber], references: [id])
+  created_at DateTime @default(now())
+  date       DateTime @default(now())
+  procedure  String
+
+  @@map("schedules")
+}
