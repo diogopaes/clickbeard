@@ -9,11 +9,13 @@
     "build:clean": "rm -rf dist",
     "prebuild": "npm run build:clean",
     "start:prod": "npm run build && node ./dist/index.js"
-},  
+  },
   "dependencies": {
     "@prisma/client": "^3.8.1",
     "bcrypt": "^5.0.1",
+    "dotenv": "^14.3.2",
     "express": "^4.17.2",
+    "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {

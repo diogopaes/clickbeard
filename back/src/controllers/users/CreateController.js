@@ -1,6 +1,6 @@
 import { CreateUser } from "../../modules/users/CreateUser";
 
-export class CreateUserController {
+export class CreateController {
     async handle(request, response) {
 
         const { email, password, admin, name } = request.body;
