@@ -1,6 +1,8 @@
 import { Header } from "../Header";
 import { Container, Content } from "./styles";
 
+import { FiLogIn } from "react-icons/fi";
+
 import { Link } from "react-router-dom";
 
 export function Login() {
@@ -9,7 +11,7 @@ export function Login() {
             <Header/>
             <Container>
                 <Content>
-                    <h1>Login</h1>
+                    <h1><FiLogIn/>Conecte-se</h1>
                     <form>
                         <input type="email" placeholder="Email" />
                         <input type="text" placeholder="Password" />

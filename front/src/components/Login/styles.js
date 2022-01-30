@@ -12,6 +12,13 @@ export const Container = styled.div`
 
     h1{
         margin-bottom: 20px;
+
+        display: flex;
+        align-items: center;
+        
+        svg{
+            margin-right: 10px;
+        }
     }
 
     form{
