@@ -40,6 +40,7 @@ model Scheduling {
   barber     Barber   @relation(fields: [id_barber], references: [id])
   created_at DateTime @default(now())
   date       DateTime
+  hour       String
   procedure  String
 
   @@map("schedules")
