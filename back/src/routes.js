@@ -3,6 +3,7 @@ import { AuthController } from "./controllers/auth/AuthController";
 import { CreateUserController } from "./controllers/users/CreateUserController";
 import { CreateBarberController } from "./controllers/barbers/CreateBarberController";
 import { CreateSchedulesController } from "./controllers/schedules/CreateSchedulesController";
+import { ensureAuthUser } from "./middlewares/ensureAuthUser";
 
 const routes = Router();
 
@@ -21,6 +22,6 @@ routes.post("/user/", createUserController.handle);
 routes.post("/barber/", createBarberControlle.handle);
 
 // Agendamento
-routes.post("/schedules/", createSchedulesController.handle);
+routes.post("/schedules/", ensureAuthUser, createSchedulesController.handle);
 
 export { routes };
