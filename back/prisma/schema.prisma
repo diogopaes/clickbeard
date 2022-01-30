@@ -42,6 +42,7 @@ model Scheduling {
   date       DateTime
   hour       String
   procedure  String
+  status     String @default("active")
 
   @@map("schedules")
 }
