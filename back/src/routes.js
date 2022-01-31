@@ -8,6 +8,7 @@ import { GetBarbersController } from "./controllers/barbers/GetBarbersController
 import { DeleteBarberController } from "./controllers/barbers/DeleteBarberController";
 import { GetSchedulesController } from "./controllers/schedules/GetSchedulesController";
 import { UpdateSchedulesController } from "./controllers/schedules/UpdateSchedulesController";
+import { GetBarberController } from "./controllers/barbers/GetBarberController";
 
 const routes = Router();
 
@@ -17,6 +18,7 @@ const createUserController = new CreateUserController();
 
 const createBarberControlle = new CreateBarberController();
 const getBarbersController = new GetBarbersController();
+const getBarber = new GetBarberController();
 const deleteBarberController = new DeleteBarberController();
 
 const createSchedulesController = new CreateSchedulesController();
@@ -32,6 +34,7 @@ routes.post("/user/", createUserController.handle);
 // Barbeiro
 routes.post("/barber/", createBarberControlle.handle);
 routes.get("/barber/", getBarbersController.handle);
+routes.get("/barber/:id", getBarber.handle);
 routes.delete("/barber/:id", deleteBarberController.handle);
 
 // Agendamento
