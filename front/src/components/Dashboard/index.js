@@ -30,10 +30,8 @@ export function Dashboard() {
 
         api.defaults.headers.common.authorization = `Bearer ${token}`;
 
-        api.get(`/schedules/${user.id}`).then(response => setSchedules(response.data));
-
-        console.log(schedules)
-    }, []);
+        api.get(`/schedules/${user?.id}`).then(response => setSchedules(response.data));
+    }, [schedules]);
 
     const handleCancelSchedule = async (id) => {
         try {
@@ -73,6 +71,7 @@ export function Dashboard() {
                                         <ScheduleItem
                                             key={schedule.id}
                                             schedule={schedule}
+                                            handleCancelSchedule={() => handleCancelSchedule(schedule.id)}
                                         />
                                     )
                                 })}
