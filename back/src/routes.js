@@ -9,12 +9,14 @@ import { DeleteBarberController } from "./controllers/barbers/DeleteBarberContro
 import { GetSchedulesController } from "./controllers/schedules/GetSchedulesController";
 import { UpdateSchedulesController } from "./controllers/schedules/UpdateSchedulesController";
 import { GetBarberController } from "./controllers/barbers/GetBarberController";
+import { ProfileUserController } from "./controllers/users/ProfileUserController";
 
 const routes = Router();
 
 const authController = new AuthController();
 
 const createUserController = new CreateUserController();
+const getProfileUserController = new ProfileUserController();
 
 const createBarberControlle = new CreateBarberController();
 const getBarbersController = new GetBarbersController();
@@ -30,6 +32,7 @@ routes.post("/auth/", authController.handle);
 
 // Usuário
 routes.post("/user/", createUserController.handle);
+routes.get("/profile/", ensureAuthUser, getProfileUserController.handle);
 
 // Barbeiro
 routes.post("/barber/", createBarberControlle.handle);
