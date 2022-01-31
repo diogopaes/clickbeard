@@ -27,7 +27,7 @@ export class AuthUser {
         })
 
         const newUser = {
-            ...user,
+            user: {...user},
             token,
         }
 
