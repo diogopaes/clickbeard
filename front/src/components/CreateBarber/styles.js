@@ -41,6 +41,17 @@ export const Container = styled.div`
             display: flex;
             align-items: center;
         }
+
+        a{
+            color: #fff;
+            display: flex;
+            align-items: center;
+
+            svg{
+                margin-right: 10px;
+                font-size: 32px;
+            }
+        }
     }
 
     h1{
@@ -57,25 +68,27 @@ export const Container = styled.div`
     form{
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         margin-bottom: 30px;
+        gap: 36px;
 
         @media screen and (max-width: ${defaultTheme.medias.medium}) {
             flex-direction: column;
-            gap: 20px;
         }
 
         input, select{
             width: 100%;
-            max-width: 356px;
-            margin-right: 20px;
+            max-width: 48%;
             border: 0;
 
             @media screen and (max-width: ${defaultTheme.medias.medium}) {
                 margin: 0;
+                max-width: 100%;
             }
         }
 
         button{
+            margin-left: auto;
             @media screen and (max-width: ${defaultTheme.medias.medium}) {
                 width: 100%;
             }

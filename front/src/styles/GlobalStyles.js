@@ -30,6 +30,10 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0 20px;
     }
 
+    a{
+        text-decoration: none;
+    }
+
     .btn{
         background-color: ${defaultTheme.colors.primary};
         color: #fff;
