@@ -25,13 +25,14 @@ export class AuthUser {
             subject: user.id,
             expiresIn: "1d",
         })
+        
+        newUser.password = '';
 
         const newUser = {
             user: {...user},
             token,
         }
 
-        newUser.password = '';
 
         return newUser;
 
