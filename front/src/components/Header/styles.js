@@ -21,3 +21,9 @@ export const Container = styled.div`
         margin-top: 20px;
     }
 `
+
+export const Loged = styled.div`
+    width: 100%;
+    max-width: 1080px;
+    text-align: left;
+`

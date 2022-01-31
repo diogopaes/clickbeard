@@ -1,13 +1,21 @@
-import { Container } from "./styles";
+import { Container, Loged } from "./styles";
 
 import Logo from "../../assets/logo.svg";
 import Bg from "../../assets/bg.png";
 
-export function Header() {
+export function Header(props) {
     return (
         <Container style={{backgroundImage: `url(${Bg})`}}>
-            <img src={Logo} alt="ClickBeard" />
-            <p>Procurando um barbeiro?<br/> Seus problemas acabaram hahaha</p>
+            {props.loged ? (
+                <Loged>
+                    <img src={Logo} alt="ClickBeard" />
+                </Loged>
+            ) : (
+                <>
+                    <img src={Logo} alt="ClickBeard" />
+                    <p>Procurando um barbeiro?<br/> Seus problemas acabaram hahaha</p>
+                </>
+            )}
         </Container>
     )
 }

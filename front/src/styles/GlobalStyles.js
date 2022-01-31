@@ -45,6 +45,8 @@ export const GlobalStyle = createGlobalStyle`
 
         cursor: pointer;
 
+        text-decoration: none;
+
         &:hover{
             filter: brightness(0.9);
         }
