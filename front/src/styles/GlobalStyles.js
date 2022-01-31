@@ -22,7 +22,7 @@ export const GlobalStyle = createGlobalStyle`
         max-width: max-content;
     }
 
-    input{
+    input, select{
         background-color: #F5F5F5;
         border-radius: 10px;
         height: 74px;
