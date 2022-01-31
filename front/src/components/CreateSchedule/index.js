@@ -5,9 +5,11 @@ import { Container, Content } from "./styles";
 import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AuthContext } from "../../context/auth";
 
 export function CreateSchedule() {
+    const { signOut, user } = useContext(AuthContext);
     const { register, watch, handleSubmit} = useForm();
 
     const [barbers, setBarbers] = useState();
@@ -49,20 +51,24 @@ export function CreateSchedule() {
     async function handleSubmitSchedule(data) {
         console.log("schedules", data)
 
-        const payload = {
-            ...data,
-            id_user: '',
-        }
-
-        const register = await api.post('schedules', payload, {
-            headers: '',
-        });
-
-        if(register.status === 200) {
-            alert('Agendamento realizado com sucesso');
-            navigate('/dashboard')
-        } else {
-            alert(register.message);
+        try {
+            const payload = {
+                ...data,
+                id_user: user.id,
+            }
+    
+            const token = localStorage.getItem('@clickbeard:token');
+    
+            api.defaults.headers.common.authorization = `Bearer ${token}`;
+    
+            const register = await api.post('schedules', payload);
+    
+            if(register.status === 200) {
+                alert('Agendamento realizado com sucesso');
+                navigate('/dashboard')
+            }
+        } catch (error) {
+            alert("Infelizmente esse horário já foi reservado ;(");
         }
     }
 
@@ -72,7 +78,7 @@ export function CreateSchedule() {
             <Container>
                 <header>
                     <Link to="/admin"><FiArrowLeft/> Voltar</Link>
-                    <button onClick={() => handleLoginOut()} >
+                    <button onClick={() => signOut()} >
                         <FiLogOut/>
                     </button>
                 </header>
