@@ -1,6 +1,14 @@
 import { Container } from "./styles";
+import { parseISO, format } from 'date-fns';
 
 export function ScheduleItem({schedule, handleCancelSchedule}) {
+
+    const parsedDate = parseISO(schedule.date);
+    const formattedDate = format(
+        parsedDate, 
+        "'Dia' dd 'de' MMM'"
+      );
+
     return (
         <Container>
             {schedule?.admin && (
@@ -19,7 +27,7 @@ export function ScheduleItem({schedule, handleCancelSchedule}) {
             </div>
             <div>
                 <span>Dia/Horário</span>
-                <h4>{schedule.date} ás {schedule.hour}</h4>
+                <h4>{formattedDate} ás {schedule.hour}</h4>
             </div>
             {!schedule?.admin && (
                 <button onClick={handleCancelSchedule}>
