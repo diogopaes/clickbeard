@@ -1,28 +1,28 @@
 import { Container } from "./styles";
 
-export function ScheduleItem(props) {
+export function ScheduleItem({schedule, handleCancelSchedule}) {
     return (
         <Container>
-            {props?.admin && (
+            {schedule?.admin && (
                 <div>
                     <span>Agendado por</span>
-                    <h4>Diogo Paes</h4>
+                    <h4>{schedule.user.name}</h4>
                 </div>
             )}
             <div>
                 <span>Barbeiro</span>
-                <h4>João Filho</h4>
+                <h4>{schedule.barber.name}</h4>
             </div>
             <div>
                 <span>Procedimento</span>
-                <h4>barba</h4>
+                <h4>{schedule.procedure}</h4>
             </div>
             <div>
                 <span>Dia/Horário</span>
-                <h4>27/01 ás 09:30</h4>
+                <h4>{schedule.date} ás {schedule.hour}</h4>
             </div>
-            {!props?.admin && (
-                <button>
+            {!schedule?.admin && (
+                <button onClick={handleCancelSchedule}>
                     cancelar agendamento
                 </button>
             )}

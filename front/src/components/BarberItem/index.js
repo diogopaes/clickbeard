@@ -1,22 +1,26 @@
+import Moment from 'moment';
 import { Container } from "./styles";
 
-export function BarberItem() {
+export function BarberItem({barber, removeBarber}) {
+
     return (
         <Container>
             <div>
                 <span>Nome</span>
-                <h4>João Filho</h4>
+                <h4>{barber.name}</h4>
             </div>
             <div>
-                <span>Procedimentos</span>
-                <h4>cabelo, barba, bigode</h4>
+                <span>Especialidades</span>
+                <h4>{barber.specialties}</h4>
             </div>
             <div>
                 <span>Data de início</span>
-                <h4>10/01/2022</h4>
+                <h4>
+                    {Moment(barber.date_of_hiring).format('d MMM YYYY')}
+                </h4>
             </div>
 
-            <button>Remover</button>
+            <button onClick={removeBarber}>Remover</button>
         </Container>
     )
 }
