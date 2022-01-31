@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 export function CreateSchedule() {
-    const { register, watch, handleSubmit, formState: { errors } } = useForm();
+    const { register, watch, handleSubmit} = useForm();
 
     const [barbers, setBarbers] = useState();
     const [barberSelected, setBarberSelectd] = useState();

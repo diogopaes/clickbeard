@@ -3,21 +3,24 @@ import { Container, Content } from "./styles";
 
 import { FiLogIn } from "react-icons/fi";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
-import { api } from "../../services/api";
+import { useContext } from "react";
+import { AuthContext } from "../../context/auth";
 
 export function Login() {
-    const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit } = useForm();
 
-    async function handleLogin(data) {
-        const login = await api.post('auth', data)
+    const navigate = useNavigate();
 
-        const { token, id, email, admin, name } = login.data
+    const { handleLogin, user } = useContext(AuthContext);
 
-        localStorage.setItem('@clickbeard:token', token);
-
+    if (user){
+        if(user.admin){
+            navigate("/admin", { replace: true });
+        }
+        navigate('/dashboard', { replace: true })
     }
 
     return (

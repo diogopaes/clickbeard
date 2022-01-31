@@ -1,15 +1,30 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Header } from "../Header";
 import { Container, Content, Barbers } from "./styles";
 
 import { FiLogOut } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Schedules } from "../Dashboard/styles";
 import { ScheduleItem } from "../ScheduleItem";
 import { BarberItem } from "../BarberItem";
 import { api } from "../../services/api";
+import { AuthContext } from "../../context/auth";
 
 export function Admin() {
+    const { signOut, user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user){
+            if(user.admin){
+                navigate("/admin", { replace: true });
+            } else {
+                navigate("/dashboard", { replace: true });
+            }
+        } else {
+            navigate('/', { replace: true })
+        }
+    }, [])
 
     const [ schedules, setSchedules ] = useState([]);
     const [ barbers, setBarbers ] = useState([]);
@@ -17,17 +32,11 @@ export function Admin() {
     useEffect(() => {
         // Agendamentos
         api.get("/schedules", {
-            headers: "",
+            headers: localStorage.getItem('@clickbeard:token'),
         }).then(response => setSchedules(response.data));
         // Barbeiros
-        api.get("/barber", {
-            headers: "",
-        }).then(response => setBarbers(response.data));
-    }, []);
-
-    function handleLoginOut() {
-    console.log("loginout")
-    }
+        api.get("/barber").then(response => setBarbers(response.data));
+    }, [barbers]);
 
     async function removeBarber(id, name) {
         try {
@@ -49,7 +58,7 @@ export function Admin() {
                     <h2>Olá, <span>Admin</span> visualize seus agendamentos <br/>
                         e cadastre seus barbeiros.
                     </h2>
-                    <button onClick={() => handleLoginOut()} >
+                    <button onClick={() => signOut()} >
                         <FiLogOut/>
                     </button>
                 </header>
@@ -61,7 +70,8 @@ export function Admin() {
                                 {schedules.map(schedule => {
                                     return (
                                         <ScheduleItem
-                                            schedule
+                                            key={schedule.id}
+                                            schedule={schedule}
                                         />
                                     )
                                 })}
@@ -79,7 +89,8 @@ export function Admin() {
                                 {schedules.map(schedule => {
                                     return (
                                         <ScheduleItem
-                                            schedule
+                                            key={schedule.id}
+                                            schedule={schedule}
                                         />
                                     )
                                 })}

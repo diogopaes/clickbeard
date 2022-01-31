@@ -2,24 +2,38 @@ import { Header } from "../Header";
 import { Container, Content, Schedules } from "./styles";
 
 import { FiLogOut } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ScheduleItem } from "../ScheduleItem";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { AuthContext } from "../../context/auth";
 
 export function Dashboard() {
+    const { signOut, user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user){
+            if(user.admin){
+                navigate("/admin", { replace: true });
+            }
+        } else {
+            navigate('/', { replace: true })
+        }
+    }, [user])
 
     const [ schedules, setSchedules ] = useState([]);
 
-    useEffect(() => {
-        api.get("/schedules", {
-            headers: "",
-        }).then(response => setSchedules(response.data));
-    }, []);
 
-    function handleLoginOut() {
-        console.log("loginout")
-    }
+    useEffect(() => {
+        const token = localStorage.getItem('@clickbeard:token');
+
+        api.defaults.headers.common.authorization = `Bearer ${token}`;
+
+        api.get(`/schedules/${user.id}`).then(response => setSchedules(response.data));
+
+        console.log(schedules)
+    }, []);
 
     const handleCancelSchedule = async (id) => {
         try {
@@ -27,9 +41,7 @@ export function Dashboard() {
                 status: "canceled",
             }
 
-            const response = api.put(`/schedules/${id}`, payload, {
-                headers: ""
-            });
+            const response = api.put(`/schedules/${id}`, payload);
 
             return response;
         } catch (err) {
@@ -42,8 +54,8 @@ export function Dashboard() {
             <Header loged />
             <Container>
                 <header>
-                    <h2>Olá, <span>Diogo Paes</span> bem vindo.</h2>
-                    <button onClick={() => handleLoginOut()} >
+                    <h2>Olá, <span>{user?.name}</span> bem vindo.</h2>
+                    <button onClick={() => signOut()} >
                         <FiLogOut/>
                     </button>
                 </header>
@@ -59,8 +71,8 @@ export function Dashboard() {
                                 {schedules.map(schedule => {
                                     return (
                                         <ScheduleItem
-                                            schedule
-                                            handleCancelSchedule={() => handleCancelSchedule(schedule.id)}
+                                            key={schedule.id}
+                                            schedule={schedule}
                                         />
                                     )
                                 })}
