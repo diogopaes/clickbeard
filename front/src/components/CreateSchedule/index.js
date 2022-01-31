@@ -26,8 +26,23 @@ export function CreateSchedule() {
                         <input type="date" placeholder="Selecione o dia e hora" />
                         <select name="hour" id="hour">
                             <option value="08:00">08:00</option>
-                            <option value="08:30">08:30</option>
-                            <option value="09:00">09:00</option>
+                            <option value="08:00">08:30</option>
+                            <option value="08:00">09:00</option>
+                            <option value="08:00">09:30</option>
+                            <option value="08:00">10:00</option>
+                            <option value="08:00">10:30</option>
+                            <option value="08:00">11:00</option>
+                            <option value="08:00">11:30</option>
+                            <option value="08:00">13:00</option>
+                            <option value="08:00">13:30</option>
+                            <option value="08:00">14:00</option>
+                            <option value="08:00">14:30</option>
+                            <option value="08:00">15:00</option>
+                            <option value="08:00">15:30</option>
+                            <option value="08:00">16:00</option>
+                            <option value="08:00">16:30</option>
+                            <option value="08:00">17:00</option>
+                            <option value="08:00">17:30</option>
                         </select>
 
                         <button type="submit" className="btn">Buscar</button>

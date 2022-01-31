@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { Admin } from "./components/Admin";
+import { CreateBarber } from "./components/CreateBarber";
 import { CreateSchedule } from "./components/CreateSchedule";
 import { Dashboard } from "./components/Dashboard";
 
@@ -15,6 +16,7 @@ export function Router() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/create-schedule" element={<CreateSchedule />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/create-barber" element={<CreateBarber />} />
         </Routes>
     )
 };
