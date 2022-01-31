@@ -50,7 +50,7 @@ export function Dashboard() {
                 <Content>
                     <h2>Agendamentos 
                         {schedules.length ? (
-                            <Link className="btn" to="/">Agendar novo horário</Link>
+                            <Link className="btn" to="/create-schedule">Agendar novo horário</Link>
                         ) : ('')}
                     </h2>
                     {schedules.length ? (
@@ -69,7 +69,7 @@ export function Dashboard() {
                     ) : (
                         <div style={{ textAlign: "center" }}>
                             <h4 style={{ marginBottom: '20px' }}>Ainda não tem agendamentos</h4>
-                            <Link className="btn" to="/">Agendar horário</Link>
+                            <Link className="btn" to="/create-schedule">Agendar horário</Link>
                         </div>
                     )}
                 </Content>

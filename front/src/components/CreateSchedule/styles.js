@@ -31,6 +31,17 @@ export const Container = styled.div`
             color: ${defaultTheme.colors.primary};
         }
 
+        a{
+            color: #fff;
+            display: flex;
+            align-items: center;
+
+            svg{
+                margin-right: 10px;
+                font-size: 32px;
+            }
+        }
+
         button{
             border: 0;
             background: transparent;

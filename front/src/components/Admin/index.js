@@ -70,7 +70,6 @@ export function Admin() {
                     ) : (
                         <div style={{ textAlign: "center" }}>
                             <h4 style={{ marginBottom: '20px' }}>Ainda não tem agendamentos</h4>
-                            <Link className="btn" to="/">Agendar horário</Link>
                         </div>
                     )}
                     <h2>Próximos agendamentos</h2>
@@ -89,7 +88,6 @@ export function Admin() {
                     ) : (
                         <div style={{ textAlign: "center" }}>
                             <h4 style={{ marginBottom: '20px' }}>Ainda não tem agendamentos</h4>
-                            <Link className="btn" to="/">Agendar horário</Link>
                         </div>
                     )}
                     <h2>Barbeiros 
