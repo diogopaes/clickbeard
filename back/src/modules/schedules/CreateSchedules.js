@@ -15,7 +15,7 @@ export class CreateSchedules {
         });
 
         if (asDate && asHour) {
-            throw new Error('someone arrived before you and already booked for this time')
+            throw new Error('Infelizmente esse horário já foi reservado ;(')
         };
 
 

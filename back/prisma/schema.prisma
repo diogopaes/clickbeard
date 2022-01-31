@@ -39,7 +39,7 @@ model Scheduling {
   id_barber  String
   barber     Barber   @relation(fields: [id_barber], references: [id])
   created_at DateTime @default(now())
-  date       DateTime
+  date       String
   hour       String
   procedure  String
   status     String @default("active")
