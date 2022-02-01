@@ -11,6 +11,8 @@ import { BarberItem } from "../BarberItem";
 import { api } from "../../services/api";
 import { AuthContext } from "../../context/auth";
 
+import toast from 'react-hot-toast';
+
 export function Admin() {
     const { signOut, user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -54,10 +56,11 @@ export function Admin() {
             const response = await api.delete(`/barber/${id}`);
 
             if (response){
-                alert(`Barbeiro ${name} removido com sucesso!`)
+                toast.success(`Barbeiro ${name} removido com sucesso!`)
+                window.location.reload();
             }
         } catch (error) {
-            alert(error)
+            toast.error('Erro ao tentar deletar barbeiro!')
         }
     }
 

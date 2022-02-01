@@ -10,6 +10,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth";
 
+import toast from 'react-hot-toast';
+
 export function CreateSchedule() {
     const { signOut, user } = useContext(AuthContext);
     const { register, watch, handleSubmit} = useForm();
@@ -21,7 +23,6 @@ export function CreateSchedule() {
     const navigate = useNavigate();
 
     async function handleGetBarbers(data) {
-        console.log("barbeiros", data)
 
         try {
             const response = await api.get('barber/');
@@ -48,7 +49,6 @@ export function CreateSchedule() {
     }, [watch('id_barber')]);
 
     async function handleSubmitSchedule(data) {
-        console.log("schedules", data)
 
         try {
             const payload = {
@@ -63,11 +63,11 @@ export function CreateSchedule() {
             const register = await api.post('schedules', payload);
     
             if(register.status === 200) {
-                alert('Agendamento realizado com sucesso');
+                toast.success('Agendamento realizado com sucesso');
                 navigate('/dashboard')
             }
         } catch (error) {
-            alert("Infelizmente esse horário já foi reservado ;(");
+            toast.error("Infelizmente esse horário já foi reservado ;(");
         }
     }
 
@@ -120,6 +120,7 @@ export function CreateSchedule() {
                             <form className="barbers" onSubmit={handleSubmit(handleSubmitSchedule)}>
 
                                 <select {...register('id_barber')}>
+                                    <option defualt>Selecione o Barbeiro</option>
                                     {barbers?.map(value => {
                                         return (
                                             <option key={value.id} value={value.id}>
@@ -130,6 +131,7 @@ export function CreateSchedule() {
                                 </select>
 
                                 <select {...register('procedure')}>
+                                    <option defualt>Selecione o Procedimento</option>
                                     {barberSelected?.map(value => {
                                         return (
                                             <option key={value} value={value}>

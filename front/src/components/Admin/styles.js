@@ -104,6 +104,10 @@ export const Content = styled.div`
         align-items: center;
     }
 
+    h2 ~ h2{
+        margin-top: 50px;
+    }
+
     a{
         font-size: 12px;
         padding: 5px 20px;

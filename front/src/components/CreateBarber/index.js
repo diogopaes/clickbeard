@@ -6,6 +6,8 @@ import { Container, Content } from "./styles";
 import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
 
+import toast from 'react-hot-toast';
+
 export function CreateBarber() {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -20,10 +22,10 @@ export function CreateBarber() {
             const register = await api.post('barber', data);
 
             if (register.status === 200) {
-                alert('Cadastro realizado com sucesso!')
+                toast.success('Cadastro realizado com sucesso!')
                 navigate("/admin");
             } else {
-                alert('Erro ao tentar cadastrar barbeiro!')
+                toast.error('Erro ao tentar cadastrar barbeiro!')
             }
         } catch (err) {
             console.log(err)

@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/auth";
 
 export function Login() {
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: {errors} } = useForm();
 
     const navigate = useNavigate();
 
@@ -19,8 +19,9 @@ export function Login() {
     if (user){
         if(user.admin){
             navigate("/admin", { replace: true });
+        } else {
+            navigate('/dashboard', { replace: true })
         }
-        navigate('/dashboard', { replace: true })
     }
 
     return (

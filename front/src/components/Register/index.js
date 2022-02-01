@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { api } from "../../services/api";
 
+import toast from 'react-hot-toast';
+
 export function Register() {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
@@ -23,9 +25,10 @@ export function Register() {
             const register = await api.post('user', payload);
 
             if (register.status === 200) {
+                toast.success('Cadastro realizado com sucesso!')
                 navigate('/dashboard')
             } else{
-                alert('Erro ao tentar fazer cadastro!')
+                toast.error('Erro ao tentar fazer cadastro!')
             }
         } catch (err) {
             console.log(err);

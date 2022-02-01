@@ -8,6 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { AuthContext } from "../../context/auth";
 
+import toast from 'react-hot-toast';
+
 import { parseISO } from 'date-fns';
 
 export function Dashboard() {
@@ -44,7 +46,7 @@ export function Dashboard() {
             var getMilliseconds = Math.abs(actualDate.getTime() - dateSchedule.getTime());
 
             if (getMilliseconds >= 7200000){
-                alert('Infelizmente após 2 horas não podemos cancelar seu agendamento!')
+                toast.arguments('Infelizmente após 2 horas não podemos cancelar seu agendamento!')
             }
 
             const payload = {
@@ -54,7 +56,7 @@ export function Dashboard() {
             const response = await api.put(`/schedules/${id}`, payload);
 
             if (response.status === 200) {
-                alert('Agendamento cancelado com sucesso!')
+                toast.success('Agendamento cancelado com sucesso!')
             }
 
         } catch (err) {

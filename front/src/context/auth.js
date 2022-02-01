@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 
+import toast from 'react-hot-toast';
+
 export const AuthContext = createContext({});
 
 export function AuthProvider(props) {
@@ -10,13 +12,17 @@ export function AuthProvider(props) {
     const navigate = useNavigate();
 
     async function handleLogin(data) {
-        const login = await api.post('auth', data)
+        try {
+            const login = await api.post('auth', data)
 
-        const { token, user } = login.data;
+            const { token, user } = login.data;
 
-        localStorage.setItem('@clickbeard:token', token);
+            localStorage.setItem('@clickbeard:token', token);
 
-        setUser(user);
+            setUser(user);
+        } catch (error) {
+            toast.error('Email ou senha incorreto!');
+        }
     }
 
     function signOut() {
