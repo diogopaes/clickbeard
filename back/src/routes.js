@@ -11,6 +11,8 @@ import { UpdateSchedulesController } from "./controllers/schedules/UpdateSchedul
 import { GetBarberController } from "./controllers/barbers/GetBarberController";
 import { ProfileUserController } from "./controllers/users/ProfileUserController";
 import { GetSchedulesUserController } from "./controllers/schedules/GetSchedulesUserController";
+import { GetSchedulesTodayController } from "./controllers/schedules/GetSchedulesTodayController";
+import { GetSchedulesUpcomingController } from "./controllers/schedules/GetSchedulesUpcomingController";
 
 const routes = Router();
 
@@ -25,9 +27,11 @@ const getBarber = new GetBarberController();
 const deleteBarberController = new DeleteBarberController();
 
 const createSchedulesController = new CreateSchedulesController();
-const getSchedulesController = new GetSchedulesController();
 const updateSchedulesController = new UpdateSchedulesController();
 const getSchedulesUserController = new GetSchedulesUserController();
+const getSchedulesController = new GetSchedulesController();
+const getSchedulesTodayController = new GetSchedulesTodayController();
+const getSchedulesUpcomingController = new GetSchedulesUpcomingController();
 
 // Autenticação
 routes.post("/auth/", authController.handle);
@@ -45,6 +49,8 @@ routes.delete("/barber/:id", deleteBarberController.handle);
 // Agendamento
 routes.post("/schedules/", ensureAuthUser, createSchedulesController.handle);
 routes.get("/schedules/", ensureAuthUser, getSchedulesController.handle);
+routes.get("/schedules/today/:day", ensureAuthUser, getSchedulesTodayController.handle);
+routes.get("/schedules/upcoming/:noday", ensureAuthUser, getSchedulesUpcomingController.handle);
 routes.get("/schedules/:id", ensureAuthUser, getSchedulesUserController.handle);
 routes.put("/schedules/:id", ensureAuthUser, updateSchedulesController.handle);
 

@@ -1,8 +1,14 @@
 import { prisma } from "../../database/prismaClient";
 
-export class GetSchedules {
-    async execute() { 
+export class GetSchedulesUpcoming {
+    async execute({noday}) {
+
         const schedules = await prisma.scheduling.findMany({
+            where: {
+                NOT: {
+                    date: noday
+                }
+            },
             include: {
                 user: true,
                 barber: true,

@@ -1,8 +1,12 @@
 import { prisma } from "../../database/prismaClient";
 
-export class GetSchedules {
-    async execute() { 
+export class GetSchedulesToday {
+    async execute({day}) {
+
         const schedules = await prisma.scheduling.findMany({
+            where: {
+                date: day
+            },
             include: {
                 user: true,
                 barber: true,
