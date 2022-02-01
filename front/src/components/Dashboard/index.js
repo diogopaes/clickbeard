@@ -8,6 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { AuthContext } from "../../context/auth";
 
+import { parseISO } from 'date-fns';
+
 export function Dashboard() {
     const { signOut, user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -31,17 +33,30 @@ export function Dashboard() {
         api.defaults.headers.common.authorization = `Bearer ${token}`;
 
         api.get(`/schedules/${user?.id}`).then(response => setSchedules(response.data));
-    }, [schedules]);
+    }, []);
 
-    const handleCancelSchedule = async (id) => {
+    async function handleCancelSchedule(id, date) {
         try {
+
+            const actualDate = new Date();
+            const dateSchedule = parseISO(date);
+
+            var getMilliseconds = Math.abs(actualDate.getTime() - dateSchedule.getTime());
+
+            if (getMilliseconds >= 7200000){
+                alert('Infelizmente após 2 horas não podemos cancelar seu agendamento!')
+            }
+
             const payload = {
                 status: "canceled",
             }
 
-            const response = api.put(`/schedules/${id}`, payload);
+            const response = await api.put(`/schedules/${id}`, payload);
 
-            return response;
+            if (response.status === 200) {
+                alert('Agendamento cancelado com sucesso!')
+            }
+
         } catch (err) {
             console.log(err);
         }
@@ -71,7 +86,7 @@ export function Dashboard() {
                                         <ScheduleItem
                                             key={schedule.id}
                                             schedule={schedule}
-                                            handleCancelSchedule={() => handleCancelSchedule(schedule.id)}
+                                            handleCancelSchedule={() => handleCancelSchedule(schedule.id, schedule.created_at)}
                                         />
                                     )
                                 })}
