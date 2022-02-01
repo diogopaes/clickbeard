@@ -30,13 +30,14 @@ export function Admin() {
     const [ barbers, setBarbers ] = useState([]);
 
     useEffect(() => {
-        // Agendamentos
-        api.get("/schedules", {
-            headers: localStorage.getItem('@clickbeard:token'),
-        }).then(response => setSchedules(response.data));
-        // Barbeiros
+        const token = localStorage.getItem('@clickbeard:token');
+
+        api.defaults.headers.common.authorization = `Bearer ${token}`;
+        
+        api.get("/schedules").then(response => setSchedules(response.data));
+        
         api.get("/barber").then(response => setBarbers(response.data));
-    }, [barbers]);
+    }, []);
 
     async function removeBarber(id, name) {
         try {
