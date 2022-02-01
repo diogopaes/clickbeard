@@ -6,23 +6,27 @@ import { FiLogIn } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/auth";
 
 export function Login() {
-    const { register, handleSubmit, formState: {errors} } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const navigate = useNavigate();
 
     const { handleLogin, user } = useContext(AuthContext);
 
-    if (user){
-        if(user.admin){
+    useEffect(() => {
+        if(user?.admin){
             navigate("/admin", { replace: true });
         } else {
             navigate('/dashboard', { replace: true })
         }
-    }
+    
+        if (!user){
+            navigate('/', { replace: true })
+        }
+    }, [user])
 
     return (
         <>

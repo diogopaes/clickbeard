@@ -17,11 +17,13 @@ export function Dashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (user){
-            if(user.admin){
-                navigate("/admin", { replace: true });
-            }
+        if(user?.admin){
+            navigate("/admin", { replace: true });
         } else {
+            navigate('/dashboard', { replace: true })
+        }
+    
+        if (!user){
             navigate('/', { replace: true })
         }
     }, [user])
