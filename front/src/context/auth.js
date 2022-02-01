@@ -1,10 +1,13 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 
 export const AuthContext = createContext({});
 
 export function AuthProvider(props) {
     const [user, setUser] = useState();
+
+    const navigate = useNavigate();
 
     async function handleLogin(data) {
         const login = await api.post('auth', data)
@@ -20,7 +23,7 @@ export function AuthProvider(props) {
         setUser(null);
         localStorage.removeItem('@clickbeard:token');
 
-        window.navigator('/')
+        navigate('/')
     }
 
     useEffect(() => {

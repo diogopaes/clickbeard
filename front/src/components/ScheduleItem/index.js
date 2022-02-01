@@ -1,7 +1,11 @@
 import { Container } from "./styles";
 import { parseISO, format } from 'date-fns';
+import { useContext } from "react";
+import { AuthContext } from "../../context/auth";
 
 export function ScheduleItem({schedule, handleCancelSchedule}) {
+
+    const { user } = useContext(AuthContext);
 
     const parsedDate = parseISO(schedule.date);
     const formattedDate = format(
@@ -11,7 +15,7 @@ export function ScheduleItem({schedule, handleCancelSchedule}) {
 
     return (
         <Container>
-            {!schedule?.admin && (
+            {user?.admin && (
                 <div>
                     <span>Agendado por</span>
                     <h4>{schedule.user.name}</h4>
@@ -29,7 +33,7 @@ export function ScheduleItem({schedule, handleCancelSchedule}) {
                 <span>Dia/Horário</span>
                 <h4>{formattedDate} ás {schedule.hour}</h4>
             </div>
-            {schedule?.admin && (
+            {!user?.admin && (
                 schedule?.status === 'active' ? (
                     <button onClick={handleCancelSchedule}>
                         cancelar agendamento

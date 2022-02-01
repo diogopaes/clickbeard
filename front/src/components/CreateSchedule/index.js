@@ -2,10 +2,12 @@ import { FiLogOut, FiArrowLeft } from "react-icons/fi";
 import { Header } from "../Header";
 import { Container, Content } from "./styles";
 
+import Moment from 'moment';
+
 import { useForm } from "react-hook-form";
 import { api } from "../../services/api";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/auth";
 
 export function CreateSchedule() {
@@ -14,12 +16,9 @@ export function CreateSchedule() {
 
     const [barbers, setBarbers] = useState();
     const [barberSelected, setBarberSelectd] = useState();
+    const [ today, setToday ] = useState();
 
     const navigate = useNavigate();
-
-    function handleLoginOut() {
-        console.log("loginout")
-    }
 
     async function handleGetBarbers(data) {
         console.log("barbeiros", data)
@@ -72,6 +71,11 @@ export function CreateSchedule() {
         }
     }
 
+    useEffect(() => {
+        const dateToday = Moment(new Date()).format('YYYY-MM-DD')
+        setToday(dateToday);
+    }, [today])
+
     return (
         <>
             <Header loged />
@@ -85,7 +89,7 @@ export function CreateSchedule() {
                 <Content>
                     <h1>Escolha um dia </h1>
                     <form onSubmit={handleSubmit(handleGetBarbers)}>
-                        <input type="date" {...register("date")} placeholder="Selecione o dia" />
+                        <input type="date" {...register("date")} min={today} placeholder="Selecione o dia" />
                         <select {...register("hour")} id="hour">
                             <option>Selecione um horário</option>
                             <option value="08:00">08:00</option>

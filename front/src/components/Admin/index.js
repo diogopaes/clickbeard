@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import Moment from 'moment';
 import { Header } from "../Header";
 import { Container, Content, Barbers } from "./styles";
 
@@ -26,16 +27,25 @@ export function Admin() {
         }
     }, [])
 
-    const [ schedules, setSchedules ] = useState([]);
+    const [ schedulesToday, setSchedulesToday ] = useState([]);
+    const [ schedulesUpcoming, setSchedulesUpcoming ] = useState([]);
+
     const [ barbers, setBarbers ] = useState([]);
 
-    useEffect(() => {
+    async function getSchedules() {
         const token = localStorage.getItem('@clickbeard:token');
 
         api.defaults.headers.common.authorization = `Bearer ${token}`;
-        
-        api.get("/schedules").then(response => setSchedules(response.data));
-        
+
+        const dateToday = Moment(new Date()).format('YYYY-MM-DD')
+
+        await api.get(`/schedules/today/${dateToday}`).then(response => setSchedulesToday(response.data));
+        await api.get(`/schedules/upcoming/${dateToday}`).then(response => setSchedulesUpcoming(response.data));
+    }
+
+    useEffect(() => {
+        getSchedules();
+
         api.get("/barber").then(response => setBarbers(response.data));
     }, []);
 
@@ -65,10 +75,10 @@ export function Admin() {
                 </header>
                 <Content>
                     <h2>Agendamentos de hoje</h2>
-                    {schedules.length ? (
+                    {schedulesToday.length ? (
                         <>
                             <Schedules>
-                                {schedules.map(schedule => {
+                                {schedulesToday.map(schedule => {
                                     return (
                                         <ScheduleItem
                                             key={schedule.id}
@@ -84,10 +94,10 @@ export function Admin() {
                         </div>
                     )}
                     <h2>Próximos agendamentos</h2>
-                    {schedules.length ? (
+                    {schedulesUpcoming.length ? (
                         <>
                             <Schedules>
-                                {schedules.map(schedule => {
+                                {schedulesUpcoming.map(schedule => {
                                     return (
                                         <ScheduleItem
                                             key={schedule.id}
