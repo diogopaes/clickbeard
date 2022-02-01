@@ -11,7 +11,7 @@ export function ScheduleItem({schedule, handleCancelSchedule}) {
 
     return (
         <Container>
-            {schedule?.admin && (
+            {!schedule?.admin && (
                 <div>
                     <span>Agendado por</span>
                     <h4>{schedule.user.name}</h4>
@@ -29,10 +29,16 @@ export function ScheduleItem({schedule, handleCancelSchedule}) {
                 <span>Dia/Horário</span>
                 <h4>{formattedDate} ás {schedule.hour}</h4>
             </div>
-            {!schedule?.admin && (
-                <button onClick={handleCancelSchedule}>
-                    cancelar agendamento
-                </button>
+            {schedule?.admin && (
+                schedule?.status === 'active' ? (
+                    <button onClick={handleCancelSchedule}>
+                        cancelar agendamento
+                    </button>
+                ) : (
+                    <button disabled onClick={handleCancelSchedule}>
+                        cancelar agendamento
+                    </button>
+                )
             )}
         </Container>
     )

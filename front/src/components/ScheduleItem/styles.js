@@ -31,5 +31,10 @@ export const Container = styled.div`
         &:hover{
             filter: brightness(0.8);
         }
+
+        &:disabled {
+            background: #dddddd;
+            cursor: not-allowed;
+        }
     }
 `
