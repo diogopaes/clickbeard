@@ -4,6 +4,7 @@ export const Container = styled.div`
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #F5F5F5;
+    flex: 1;
 
     > div{
         margin-bottom: 10px;
